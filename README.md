@@ -3,6 +3,7 @@ releasecontroller-agent is a conversational agent built with langchaingo that le
 
 ## Architecture Diagram:
 
+```mermaid
 graph TD
     User -- Input --> Go_App[releasecontroller-agent Go Application]
     Go_App --> Langchaingo[Langchaingo Agent/Executor]
@@ -13,7 +14,7 @@ graph TD
     Gemini_LLM -- Generates Responses/Tool Calls --> Langchaingo
     Langchaingo -- Output --> Go_App
     Go_App -- Output --> User
-
+```
 ## Features:
 
 Conversational Agent: Interacts with users in a natural language.
