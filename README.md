@@ -5,8 +5,8 @@ releasecontroller-agent is a conversational agent built with langchaingo that le
 
 ```mermaid
 graph TD
-    User -- Input --> Go_App[releasecontroller-agent Go Application]
-    Go_App --> Langchaingo[Langchaingo Agent/Executor]
+    User -- Input --> Go_App[releasecontroller-agent]
+    Go_App --> Langchaingo[langchaingo Agent]
     Langchaingo --> Gemini_LLM[Google Gemini LLM]
     Langchaingo --> Langchaingo_MCP_Adapter[langchaingo-mcp-adapter]
     Langchaingo_MCP_Adapter --> MCP_Server[MCP Server Executable]
