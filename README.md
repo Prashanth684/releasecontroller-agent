@@ -1,5 +1,5 @@
 # Releasecontroller Agent
-releasecontroller-agent is a conversational agent built with langchaingo that leverages the langchaingo-mcp-adapter to connect to the [releasecontroller-mcp-server](https://github.com/Prashanth684/releasecontroller-mcp-server). This allows the agent to utilize tools exposed by the MCP server for analysis and generating intelligent responses, powered by Google's Gemini LLM.
+releasecontroller-agent is a conversational agent built with [langchaingo](https://github.com/tmc/langchaingo) that leverages the [langchaingo-mcp-adapter](https://github.com/i2y/langchaingo-mcp-adapter) to connect to the [releasecontroller-mcp-server](https://github.com/Prashanth684/releasecontroller-mcp-server). This allows the agent to utilize tools exposed by the MCP server for analysis and generating intelligent responses, powered by Google's Gemini LLM.
 
 ## Architecture Diagram:
 
@@ -17,40 +17,34 @@ graph TD
 ```
 ## Features:
 
-Conversational Agent: Interacts with users in a natural language.
-
-Tool Calling: Integrates with an MCP server to access and execute various tools.
-
-Google Gemini Integration: Uses a specified Gemini model (gemini-2.5-flash by default) for language understanding and generation.
-
-Extensible: Easily extendable by adding more tools to the MCP server.
+- Conversational Agent: Interacts with users in a natural language.
+- Tool Calling: Integrates with an MCP server to access and execute various tools.
+- Google Gemini Integration: Uses a specified Gemini model (gemini-2.5-flash by default) for language understanding and generation.
+- Extensible: Easily extendable by adding more tools to the MCP server.
 
 ## Prerequisites
 
 Before running this agent, ensure you have:
 
-Go installed: This project is written in Go.
-
-MCP Server Executable: A compiled MCP server executable (e.g., releasecontroller-mcp-server) must be present and accessible in your system's PATH, or its path explicitly provided in main.go.
-
-Gemini API Key: An API key for Google Gemini.
+- Go installed: This project is written in Go.
+- MCP Server Executable: A compiled MCP server executable (e.g., releasecontroller-mcp-server) must be present and accessible in your system's PATH, or its path explicitly provided in main.go.
+- Gemini API Key: An API key for Google Gemini.
 
 ## Setup and Installation
 
 Clone the repository:
-
-git clone <your-repo-url>
-cd releasecontroller-agent
-
+```
+git clone git@github.com:Prashanth684/releasecontroller-agent.git
+```
 Set your Gemini API Key:
 Export your Gemini API key as an environment variable:
-
+```
 export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
-
+```
 Build the application:
-
+```
 go build -o releasecontroller-agent .
-
+```
 ## Usage
 Run the compiled agent:
 
