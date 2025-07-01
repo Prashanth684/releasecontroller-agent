@@ -100,7 +100,7 @@ func main() {
 	)
 
 
-	convMem := memory.NewConversationWindowBuffer(6)
+	convMem := memory.NewConversationWindowBuffer(100)
 
 	// 3. Initialize the NewConversationalAgent
 	// This agent is designed for conversational interactions and uses the provided memory.
@@ -109,7 +109,7 @@ func main() {
 		mcpTools, // The tools the agent can use
 	)
 
-	executor := agents.NewExecutor(agent, agents.WithMemory(convMem), agents.WithMaxIterations(20))
+	executor := agents.NewExecutor(agent, agents.WithMemory(convMem), agents.WithMaxIterations(40))
 
 	fmt.Println("Starting conversational agent. Type 'exit' to quit.")
 	fmt.Println("This agent requires an MCP server executable at the specified path and a set GEMINI_API_KEY environment variable.")
