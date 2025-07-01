@@ -13,6 +13,7 @@ import (
 	"github.com/tmc/langchaingo/chains"
 	"github.com/tmc/langchaingo/llms/googleai"
 	"github.com/tmc/langchaingo/memory"
+	"github.com/tmc/langchaingo/prompts"
 
 	"github.com/mark3labs/mcp-go/client" // New import for the client
 )
@@ -41,7 +42,7 @@ func main() {
 	// You also need an MCP server executable in your path.
 	// Replace with the actual path to your MCP server executable.
 	mcpServerExecutablePath := "releasecontroller-mcp-server" // Path to your MCP server executable
-	geminiModelName := "gemini-2.5-flash"                     // Use "gemini-1.5-pro", "gemini-flash", etc., as needed.
+	geminiModelName := "gemini-2.0-flash"                     // Use "gemini-1.5-pro", "gemini-flash", etc., as needed.
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
@@ -88,6 +89,17 @@ func main() {
 		log.Fatalf("Create Google AI client: %v", err)
 	}
 
+	promptBytes, err := os.ReadFile("prompt_instructions")
+	if err != nil {
+		log.Fatalf("Failed to read prompt instructions: %v", err)
+	}
+	systemPrompt := string(promptBytes)
+	promptTemplate := prompts.NewPromptTemplate(
+		"{{.systemPrompt}}\nUser: {{.userInput}}",
+		[]string{"systemPrompt", "userInput"},
+	)
+
+
 	convMem := memory.NewConversationWindowBuffer(6)
 
 	// 3. Initialize the NewConversationalAgent
@@ -113,11 +125,16 @@ func main() {
 			break
 		}
 
+		prompt, err := promptTemplate.Format(map[string]any{
+			"systemPrompt": systemPrompt,
+			"userInput":    input,
+		})
+
 		// Invoke the agent with the user's input
 		result, err := chains.Run(
 			ctx,
 			executor,
-			input,
+			prompt,
 		)
 		if err != nil {
 			if strings.HasPrefix(err.Error(), agents.ErrUnableToParseOutput.Error()) {
